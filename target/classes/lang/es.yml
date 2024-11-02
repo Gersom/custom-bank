@@ -1,0 +1,19 @@
+# Mensajes en español
+plugin:
+  enabled: "¡El plugin ha sido habilitado!"
+  disabled: "¡El plugin ha sido deshabilitado!"
+
+  about:
+    welcome: "¡Bienvenido a Custom Money!"
+    description:
+      - "Este plugin ayuda a geberer dinero personalizado a los jugadores."
+      - "Puedes usar el comando /retirar para retirar dinero de tu inventario."
+      - "El comando /retirar también puede ser usado en el juego."
+  commands:
+    list: "Listado de comandos"
+    player_only: "¡Solo puedes usar este comando desde el juego!"
+    help_text: "Para ver el listado de comandos, escribe"
+    reload: "¡Configuración recargada!"
+    not_found: "¡Comando no encontrado!"
+    no_permission: "¡No tienes permiso para usar este comando!"
+    clear_records: "¡Todos los registros de los Jefes han sido borrados!"

@@ -1,0 +1,9 @@
+# Prefix of the plugin
+prefix: "&l[Banco] &r"
+
+# check in the /lang folder
+# Plugin language [en, es, other]
+language: "es"
+
+# Currency of the plugin
+coin: "GerCoins"

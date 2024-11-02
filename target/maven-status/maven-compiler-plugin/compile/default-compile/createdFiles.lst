@@ -1,0 +1,11 @@
+gersom\commands\WithdrawCommand.class
+gersom\utils\General.class
+gersom\CustomMoney.class
+gersom\config\MainConfigManager.class
+gersom\commands\SubCommands.class
+gersom\utils\Vars.class
+gersom\commands\MainCommand.class
+gersom\commands\MainTabCompleter.class
+gersom\config\LanguageManager.class
+gersom\config\CustomConfig.class
+gersom\utils\Console.class

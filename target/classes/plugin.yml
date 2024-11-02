@@ -1,0 +1,28 @@
+name: CustomMoney
+version: 1.0.0
+main: gersom.CustomMoney
+api-version: 1.17
+author: Gersom
+softdepend: [Vault]
+
+commands:
+  cm:
+    description: Custom Money command
+    aliases: [custommoney]
+    usage: /<command>
+    permission-message: §4You don't have permission to use this command
+  withdraw:
+    description: Custom Money command
+    aliases: [retirar]
+    usage: /<command>
+    permission-message: §4You don't have permission to use this command
+
+permissions:
+  custommoney.use:
+    description: Allows players to use basic CustomMoney commands (author)
+    default: true
+  custommoney.admin:
+    description: Allows administrators to use all CustomMoney commands
+    default: op
+    children:
+      custommoney.use: true
