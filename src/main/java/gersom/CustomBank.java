@@ -6,46 +6,44 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import gersom.commands.MainCommand;
 import gersom.commands.MainTabCompleter;
-import gersom.commands.WithdrawCommand;
 import gersom.config.MainConfigManager;
 import gersom.utils.Console;
 import gersom.utils.General;
 import gersom.utils.Vars;
 import net.milkbowl.vault.economy.Economy;
 
-public class CustomMoney extends JavaPlugin {
+public class CustomBank extends JavaPlugin {
     private static Economy econ = null;
     private MainConfigManager configs;
+    private MainCommand mainCommand;
+    private Vars vars;
 
     @Override
     public void onEnable() {
         // Inicializar Vars primero
-        Vars.initialize(getDescription());
-
-        // Crear la instancia de MainConfigManager
-        this.configs = new MainConfigManager(this);
-
-        // Inicializar configs
-        this.configs.initialize();
-
-        if (setupEconomy()) {
-            Console.sendMessage(General.setColor(
-                "&a" + getConfigs().getPrefix() + "&aVault dependency found! :D"
-            ));
-        } else {
-            Console.sendMessage(General.setColor(
-                "&c" + getConfigs().getPrefix() + "&cDisabled due to no Vault dependency found!"
-            ));
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
-
-        registerCommands();
+        this.vars = new Vars(this);
+        this.vars.initialize(getDescription());
 
         Console.sendMessage(General.generateHeadFrame());
         Console.printBlankLine();
+
+        // Inicializar MainConfigManager
+        this.configs = new MainConfigManager(this);
+        this.configs.initialize();
+
+        boolean vaultEnabled = existsVault();
+        if (!vaultEnabled) return;
+
+        registerCommands();
+        successEnable();
+    }
+
+    @Override
+    public void onDisable() {}
+
+    private void successEnable() {
         Console.sendMessage(
-            "&a" + configs.getPrefix() + "&a&l> " + configs.getLangPluginEnabled()
+            "&a" + configs.getPrefix() + " " + configs.getLangPluginEnabled()
         );
         Console.printBlankLine();
         Console.printFooter(getConfigs().getLanguage(), configs.getPrefix());
@@ -53,29 +51,30 @@ public class CustomMoney extends JavaPlugin {
         Console.sendMessage(General.generateSeparator());
     }
 
-    @Override
-    public void onDisable() {}
-
-    public void registerCommands() {
+    private void registerCommands() {
         // Registrar comando principal
-        MainCommand mainCommand = new MainCommand(this);
+        mainCommand = new MainCommand(this);
         MainTabCompleter tabCompleter = new MainTabCompleter();
-        PluginCommand commandCM = getCommand("cm");
+        PluginCommand commandCM = getCommand("bank");
         if (commandCM != null) {
             commandCM.setExecutor(mainCommand);
             commandCM.setTabCompleter(tabCompleter);
         }
-        
-        // Registrar comando withdraw/retirar
-        WithdrawCommand withdrawCommand = new WithdrawCommand(this);
-        PluginCommand commandWd = getCommand("withdraw");
-        if (commandWd != null) {
-            commandWd.setExecutor(withdrawCommand);
-        }
     }
 
-    public MainConfigManager getConfigs() {
-        return configs;
+    private boolean existsVault() {
+        if (setupEconomy()) {
+            Console.sendMessage(General.setColor(
+                "&a" + getConfigs().getPrefix() + " Vault dependency found! :D"
+            ));
+            return true;
+        } else {
+            Console.sendMessage(General.setColor(
+                "&c" + getConfigs().getPrefix() + "&cDisabled due to no Vault dependency found!"
+            ));
+            getServer().getPluginManager().disablePlugin(this);
+            return false;
+        }
     }
 
     private boolean setupEconomy() {
@@ -90,7 +89,19 @@ public class CustomMoney extends JavaPlugin {
         return econ != null;
     }
 
+    public MainConfigManager getConfigs() {
+        return configs;
+    }
+
     public static Economy getEconomy() {
         return econ;
+    }
+
+    public MainCommand getMainCommand() {
+        return mainCommand;
+    }
+
+    public Vars getVars() {
+        return vars;
     }
 }

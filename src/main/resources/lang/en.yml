@@ -4,17 +4,34 @@ plugin:
   disabled: "plugin has been disabled!"
 
   about:
-    welcome: "Welcome to Skeleton Bosses!"
+    welcome: "Welcome to Custom Bank!"
     description: 
-      - "TSB introduces formidable skeleton bosses to your Minecraft world: &6&lthe Skeleton Emperor and &dthe Skeleton King."
-      - "These powerful entities automatically appear around the designated area and boast enhanced attributes that distinguish them from common skeletons."
-      - "Defeat these challenging enemies to obtain unique and valuable loot, adding an exciting new dimension to your gaming experience."
+      - "Create your own custom bank."
 
-  commands:
-    list: "List of commands"
-    player_only: "You can only use this command from within the game!"
-    help_text: "To see the list of commands, type"
-    reload: "Configuration reloaded!"
-    not_found: "Command not found!"
-    no_permission: "You don't have permission to use this command!"
-    clear_records: "All the bosses' records have been deleted!"
+commands:
+  widthdraw:
+    item_obtained: "&a{prefix} You have received a bag of money with &e{amount}{coin_symbol} {coin_name}&a!"
+    full_inventory: "&c{prefix} Your inventory is full!"
+    invalid_number: "&c{prefix} You must enter a valid integer"
+    no_money: "&c{prefix} ¡You do not have enough &e{coin_name}&c!"
+    too_much_money: "&c{prefix} The amount must be greater than 0"
+
+  balance: "&a{prefix} Your current balance is &e{amount}{coin_symbol} {coin_name}&a."
+  givemoney: "&a{prefix} You have given &e{amount}{coin_symbol} {coin_name}&a to &b{player}&a."
+  setmoney: "&a{prefix} You have changed the balance of &b{player}&a to &e{amount}{coin_symbol} {coin_name}&a."
+  reducemoney: "&a{prefix} You have reduced the balance of &b{player}&a to &e{amount}{coin_symbol} {coin_name}&a."
+  ranking: "&a{prefix} Your current rank is &e{rank}&a."
+  list: "List of commands"
+  player_only: "You can only use this command from within the game!"
+  help_text: "To see the list of commands, type"
+  reload: "Configuration reloaded!"
+  not_found: "Command not found!"
+  no_permission: "You don't have permission to use this command!"
+
+item:
+  name: "&6&lMoney bag &6(&e{amount}{coin_symbol}&6)"
+  lore:
+    - "&7Contains: &e{amount}{coin_symbol} {coin_name}"
+    - " "
+    - "&aRight click to deposit"
+    - "&athe money in your account."

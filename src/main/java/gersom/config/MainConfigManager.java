@@ -2,14 +2,14 @@ package gersom.config;
 
 import java.util.List;
 
-import gersom.CustomMoney;
+import gersom.CustomBank;
 
 public class MainConfigManager {
     private final CustomConfig configFile;
     private LanguageManager languageManager;
-    private final CustomMoney plugin;
+    private final CustomBank plugin;
 
-    public MainConfigManager(CustomMoney plugin) {
+    public MainConfigManager(CustomBank plugin) {
         this.plugin = plugin;
         this.configFile = new CustomConfig("config.yml", null, plugin);
         this.configFile.registerConfig();
@@ -38,8 +38,11 @@ public class MainConfigManager {
         return configFile.getString("language", "en");
     }
 
-    public String getCoin() {
-        return configFile.getString("coin", "GerCoins");
+    public String getCoinName() {
+        return configFile.getString("coin.name", "GerCoins");
+    }
+    public String getCoinSymbol() {
+        return configFile.getString("coin.symbol", "GC");
     }
 
     // Delegate message methods to LanguageManager
@@ -60,25 +63,72 @@ public class MainConfigManager {
     }
 
     // Commands messages
-    public String getLangCommandsList() {
-        return languageManager.getLangCommandsList();
+    // Widthdraw messages
+    public String getLangWidthdrawItemObtained() {
+        return languageManager.getLangWidthdrawItemObtained();
     }
-    public String getLangCommandPlayerOnly() {
+    public String getLangWidthdrawFullInventory() {
+        return languageManager.getLangWidthdrawFullInventory();
+    }
+    public String getLangWidthdrawInvalidNumber() {
+        return languageManager.getLangWidthdrawInvalidNumber();
+    }
+    public String getLangWidthdrawNoMoney() {
+        return languageManager.getLangWidthdrawNoMoney();
+    }
+    public String getLangWidthdrawTooMuchMoney() {
+        return languageManager.getLangWidthdrawTooMuchMoney();
+    }
+
+    // Balance messages
+    public String getLangBalance() {
+        return languageManager.getLangBalance();
+    }
+
+    // GiveMoney messages
+    public String getLangGiveMoney() {
+        return languageManager.getLangGiveMoney();
+    }
+
+    // SetMoney messages
+    public String getLangSetMoney() {
+        return languageManager.getLangSetMoney();
+    }
+
+    // ReduceMoney messages
+    public String getLangReduceMoney() {
+        return languageManager.getLangReduceMoney();
+    }
+
+    // Ranking messages
+    public String getLangRanking() {
+        return languageManager.getLangRanking();
+    }
+
+    public String getLangList() {
+        return languageManager.getLangList();
+    }
+    public String getLangPlayerOnly() {
         return languageManager.getLangCommandPlayerOnly();
     }
-    public String getLangCommandHelpText() {
+    public String getLangHelpText() {
         return languageManager.getLangCommandHelpText();
     }
-    public String getLangCommandReload() {
+    public String getLangReload() {
         return languageManager.getLangCommandReload();
     }
-    public String getLangCommandNotFound() {
+    public String getLangNotFound() {
         return languageManager.getLangCommandNotFound();
     }
-    public String getLangCommandNotPermission() {
+    public String getLangNotPermission() {
         return languageManager.getLangCommandNotPermission();
     }
-    public String getLangCommandClearRecords() {
-        return languageManager.getLangCommandClearRecords();
+
+    // Item messages
+    public String getLangItemName() {
+        return languageManager.getLangItemName();
+    }
+    public List<String> getLangItemLore() {
+        return languageManager.getLangItemLore();
     }
 }

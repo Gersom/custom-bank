@@ -16,11 +16,11 @@ public class Console {
 
     public static void printFooter(String lang, String prefix) {    
         if (lang.equals("es")) {
-            sendMessage("&b" + prefix + "&lGracias por usar mi plugin <3");
-            sendMessage("&b" + prefix + "&lDesarrollador: &eGersom");
+            sendMessage("&b" + prefix + " &lGracias por usar mi plugin <3");
+            sendMessage("&b" + prefix + " &lDesarrollador: &eGersom");
         } else {
-            sendMessage("&b" + prefix + "&lThank you for using my plugin <3");
-            sendMessage("&b" + prefix + "&lDeveloper: &eGersom");
+            sendMessage("&b" + prefix + " &lThank you for using my plugin <3");
+            sendMessage("&b" + prefix + " &lDeveloper: &eGersom");
         }
     }
 }

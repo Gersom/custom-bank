@@ -4,15 +4,15 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import gersom.CustomMoney;
+import gersom.CustomBank;
 import gersom.utils.Console;
 
 public class LanguageManager {
-    private final CustomMoney plugin;
+    private final CustomBank plugin;
     private CustomConfig langConfig;
     private static final List<String> SUPPORTED_LANGUAGES = Arrays.asList("en", "es", "other");
 
-    public LanguageManager(CustomMoney plugin) {
+    public LanguageManager(CustomBank plugin) {
         this.plugin = plugin;
         createLanguageFiles();
         loadLanguageConfig();
@@ -23,7 +23,10 @@ public class LanguageManager {
             File langFile = new File(plugin.getDataFolder() + File.separator + "lang", lang + ".yml");
             if (!langFile.exists()) {
                 plugin.saveResource("lang" + File.separator + lang + ".yml", false);
-                Console.sendMessage("&aCreated language file: " + lang + ".yml");
+                Console.sendMessage(
+                    "&a" + plugin.getConfigs().getPrefix() + 
+                    " Created language file: " + lang + ".yml"
+                );
             }
         }
     }
@@ -31,11 +34,17 @@ public class LanguageManager {
     private void loadLanguageConfig() {
         String language = plugin.getConfigs().getLanguage();
         if (!SUPPORTED_LANGUAGES.contains(language)) {
-            Console.sendMessage("&cWarning: Unsupported language '" + language + "'. Defaulting to 'en'.");
+            Console.sendMessage(
+                "&c" + plugin.getConfigs().getPrefix() +
+                " Warning: Unsupported language '" + language + "'. Defaulting to 'en'."
+            );
             language = "en";
         }
         
-        Console.sendMessage("&aLoading language: " + language);
+        Console.sendMessage(
+            "&a" + plugin.getConfigs().getPrefix() +
+            " Loading language: " + language
+        );
         langConfig = new CustomConfig(language + ".yml", "lang", plugin);
         langConfig.registerConfig();
     }
@@ -72,25 +81,72 @@ public class LanguageManager {
     }
 
     // Commands messages
-    public String getLangCommandsList() {
-        return getMessage("plugin.commands.list", "List of commands:");
+    // Widthdraw messages
+    public String getLangWidthdrawItemObtained() {
+        return getMessage("commands.widthdraw.item_obtained", "&a{prefix} You have received a bag of money with &e{amount} {coin_name}&a!");
+    }
+    public String getLangWidthdrawFullInventory() {
+        return getMessage("commands.widthdraw.full_inventory", "&c{prefix} Your inventory is full!");
+    }
+    public String getLangWidthdrawInvalidNumber() {
+        return getMessage("commands.widthdraw.invalid_number", "&c{prefix} You must enter a valid integer");
+    }
+    public String getLangWidthdrawNoMoney() {
+        return getMessage("commands.widthdraw.no_money", "&c{prefix} ¡You do not have enough &e{coin_name}&c!");
+    }
+    public String getLangWidthdrawTooMuchMoney() {
+        return getMessage("commands.widthdraw.too_much_money", "&c{prefix} The amount must be greater than 0");
+    }
+
+    // Balance messages
+    public String getLangBalance() {
+        return getMessage("commands.balance", "&a{prefix} Your current balance is &e{amount} {coin_name}&a.");
+    }
+
+    // GiveMoney messages
+    public String getLangGiveMoney() {
+        return getMessage("commands.givemoney", "&a{prefix} You have given &e{amount} {coin_name}&a to &b{player}&a.");
+    }
+
+    // SetMoney messages
+    public String getLangSetMoney() {
+        return getMessage("commands.setmoney", "&a{prefix} You have changed the balance of &b{player}&a to &e{amount} {coin_name}&a.");
+    }
+
+    // ReduceMoney messages
+    public String getLangReduceMoney() {
+        return getMessage("commands.reducemoney", "&a{prefix} You have reduced the balance of &b{player}&a to &e{amount} {coin_name}&a.");
+    }
+
+    // Ranking messages
+    public String getLangRanking() {
+        return getMessage("commands.ranking", "&a{prefix} Your current rank is &e{rank}&a.");
+    }
+
+    public String getLangList() {
+        return getMessage("commands.list", "List of commands");
     }
     public String getLangCommandPlayerOnly() {
-        return getMessage("plugin.commands.player_only", "This command can only be used in-game!");
+        return getMessage("commands.player_only", "This command can only be used in-game!");
     }
     public String getLangCommandHelpText() {
-        return getMessage("plugin.commands.help_text", "To see the list of commands, type");
+        return getMessage("commands.help_text", "To see the list of commands, type");
     }
     public String getLangCommandReload() {
-        return getMessage("plugin.commands.reload", "Reload the configs");
+        return getMessage("commands.reload", "Reload the configs");
     }
     public String getLangCommandNotFound() {
-        return getMessage("plugin.commands.not_found", "Command not found!");
+        return getMessage("commands.not_found", "Command not found!");
     }
     public String getLangCommandNotPermission() {
-        return getMessage("plugin.commands.no_permission", "You don't have permission to use this command!");
+        return getMessage("commands.no_permission", "You don't have permission to use this command!");
     }
-    public String getLangCommandClearRecords() {
-        return getMessage("plugin.commands.clear_records", "All the bosses' records have been deleted!");
+
+    // Item messages
+    public String getLangItemName() {
+        return getMessage("item.name", "&6&lMoney bag (&e{mount}{coin_symbol}&6)");
+    }
+    public List<String> getLangItemLore() {
+        return getMessageList("item.lore");
     }
 }

@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>gersom</groupId>
-    <artifactId>custom-money</artifactId>
+    <artifactId>custom-bank</artifactId>
     <version>1.0.0</version>
-    <name>CustomMoney</name>
+    <name>CustomBank</name>
 
     <properties>
         <maven.compiler.release>17</maven.compiler.release>

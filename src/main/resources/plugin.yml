@@ -1,28 +1,62 @@
-name: CustomMoney
+name: CustomBank
 version: 1.0.0
-main: gersom.CustomMoney
+main: gersom.CustomBank
 api-version: 1.17
 author: Gersom
 softdepend: [Vault]
 
 commands:
-  cm:
-    description: Custom Money command
-    aliases: [custommoney]
-    usage: /<command>
+  bank:
+    description: Custom Bank command
+    aliases: [custombank]
+    usage: /<command> [subcommand]
     permission-message: §4You don't have permission to use this command
-  withdraw:
-    description: Custom Money command
-    aliases: [retirar]
-    usage: /<command>
-    permission-message: §4You don't have permission to use this command
+    subcommands:
+      widthdraw:
+        description: Withdraw money from the player
+        usage: /<command> widthdraw <amount>
+        permission: the-skeleton-bosses.use
+      balance:
+        description: Shows the balance of the player
+        usage: /<command> balance
+        permission: the-skeleton-bosses.use
+      ranking:
+        description: Shows the ranking of the player
+        usage: /<command> ranking
+        permission: the-skeleton-bosses.use
+      author:
+        description: Shows author of plugin
+        usage: /<command> author
+        permission: the-skeleton-bosses.use
+
+      givemoney:
+        description: Gives money to the player
+        usage: /<command> give <amount>
+      setmoney:
+        description: Sets the money of the player
+        usage: /<command> setmoney <amount>
+      reducemoney:
+        description: Reduces the money of the player
+        usage: /<command> reducemoney <amount>
+      reload:
+        description: Reloads config.yml
+        usage: /<command> reload
+        permission: the-skeleton-bosses.admin
+      version:
+        description: Shows version of plugin
+        usage: /<command> version
+        permission: the-skeleton-bosses.admin
+      help:
+        description: Shows help message
+        usage: /<command> help
+        permission: the-skeleton-bosses.admin
 
 permissions:
-  custommoney.use:
-    description: Allows players to use basic CustomMoney commands (author)
+  custombank.use:
+    description: Allows players to use basic CustomBank commands (author)
     default: true
-  custommoney.admin:
-    description: Allows administrators to use all CustomMoney commands
+  custombank.admin:
+    description: Allows administrators to use all CustomBank commands
     default: op
     children:
-      custommoney.use: true
+      custombank.use: true

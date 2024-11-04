@@ -1,6 +1,5 @@
 gersom\commands\WithdrawCommand.class
 gersom\utils\General.class
-gersom\CustomMoney.class
 gersom\config\MainConfigManager.class
 gersom\commands\SubCommands.class
 gersom\utils\Vars.class

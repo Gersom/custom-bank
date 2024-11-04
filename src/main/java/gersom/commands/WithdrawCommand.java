@@ -2,13 +2,11 @@ package gersom.commands;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -16,56 +14,77 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 
-import gersom.CustomMoney;
-import gersom.utils.Console;
+import gersom.CustomBank;
 import gersom.utils.General;
 import net.milkbowl.vault.economy.Economy;
 
 
-public class WithdrawCommand implements CommandExecutor {
-    private final CustomMoney plugin;
+public class WithdrawCommand {
+    private final CustomBank plugin;
 
-    public WithdrawCommand(CustomMoney plugin) {
+    public WithdrawCommand(CustomBank plugin) {
         this.plugin = plugin;
     }
 
-    @Override
     @SuppressWarnings({"", "CallToPrintStackTrace"})
-    public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
-        // Si se ejecuta el comando desde la consola
-        if (!(sender instanceof Player)) {
-            Console.sendMessage("&c" + plugin.getConfigs().getPrefix() + plugin.getConfigs().getLangCommandPlayerOnly());
-            return true;
+    public void commandLogic(Player player, String[] args) {
+        if (args.length == 1) {
+            String message = plugin.getConfigs().getLangWidthdrawInvalidNumber();
+            message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
+            player.sendMessage(General.setColor(message));
+            return;
         }
 
-        // Verificar si hay espacio en el inventario
-        Player player = (Player) sender;
         PlayerInventory inventory = player.getInventory();
         if (inventory.firstEmpty() == -1) {
-            player.sendMessage(General.setColor(
-                "&c" + plugin.getConfigs().getPrefix() + "&c¡Tu inventario está lleno!"
-            ));
-            return true;
+            String message = plugin.getConfigs().getLangWidthdrawFullInventory();
+            message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
+            player.sendMessage(General.setColor(message));
+            return;
+        }
+
+        int amount;
+        try {
+            // Reemplazar comas por puntos para manejar ambos formatos
+            String numberStr = args[1].replace(',', '.');
+            // Convertir a double primero para poder manejar decimales
+            double tempAmount = Double.parseDouble(numberStr);
+            
+            // Verificar que el número sea positivo
+            if (tempAmount <= 0) {
+                String message = plugin.getConfigs().getLangWidthdrawTooMuchMoney();
+                message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
+                player.sendMessage(General.setColor(message));
+                return;
+            }
+
+            // Redondear al entero más cercano
+            amount = (int) Math.round(tempAmount);
+        }
+        
+        catch (NumberFormatException e) {
+            String message = plugin.getConfigs().getLangWidthdrawInvalidNumber();
+            message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
+            player.sendMessage(General.setColor(message));
+            return;
         }
 
         // Retirar dinero
-        boolean successWithdraw = withdrawMoney(player, 100);
-        if (!successWithdraw) return true;
+        boolean successWithdraw = withdrawMoney(player, amount);
+        if (!successWithdraw) return;
 
         // Dar la cabeza al jugador
-        ItemStack sackHead = generateSackHead("100");
+        ItemStack sackHead = generateSackHead(amount);
         inventory.addItem(sackHead);
 
         // Enviar mensaje de confirmación
-        player.sendMessage(General.setColor(
-            "&a" + plugin.getConfigs().getPrefix() + "&a¡Has recibido una bolsa de dinero con &e&l100 GerCoins&a!"
-        ));
-
-        return true;
-    };
+        String message = plugin.getConfigs().getLangWidthdrawItemObtained();
+        message = plugin.getVars().replaceVars(message, amount);
+        player.sendMessage(General.setColor(message));
+    }
 
     @SuppressWarnings({"", "CallToPrintStackTrace"})
-    private ItemStack generateSackHead(String mount) {
+    private ItemStack generateSackHead(Integer amount) {
         // Crear la cabeza personalizada
         ItemStack sackHead = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta sackHeadMeta = (SkullMeta) sackHead.getItemMeta();
@@ -83,9 +102,16 @@ public class WithdrawCommand implements CommandExecutor {
         sackHeadMeta.setOwnerProfile(dummyProfile);
 
         // Establecer nombre y lore
-        sackHeadMeta.setDisplayName(General.setColor("&6Bolsa de dinero (&e&l" + mount + "$&6)"));
+        String sackItemName = plugin.getConfigs().getLangItemName();
+        sackItemName = plugin.getVars().replaceVars(sackItemName, amount);
+        sackHeadMeta.setDisplayName(General.setColor(sackItemName));
+
         java.util.List<String> paperLore = new java.util.ArrayList<>();
-        paperLore.add(General.setColor("&aDale click derecho para cobrar"));
+        List<String> sackItemLore = plugin.getConfigs().getLangItemLore();
+        for (String line : sackItemLore) {
+            line = plugin.getVars().replaceVars(line, amount);
+            paperLore.add(General.setColor(line));
+        }
         sackHeadMeta.setLore(paperLore);
 
         // Aplicar los cambios al ItemStack
@@ -94,17 +120,17 @@ public class WithdrawCommand implements CommandExecutor {
         return sackHead;
     }
 
-    private boolean withdrawMoney(Player player, double amount) {
-        Economy econ = CustomMoney.getEconomy();
+    private boolean withdrawMoney(Player player, Integer amount) {
+        Economy econ = CustomBank.getEconomy();
         double money = econ.getBalance(player);
 
         if (money < amount) {
-            player.sendMessage(General.setColor(
-                "&c" + plugin.getConfigs().getPrefix() + "&c¡No tienes suficiente dinero!"
-            ));
+            String message = plugin.getConfigs().getLangWidthdrawNoMoney();
+            message = plugin.getVars().replaceVars(message);
+            player.sendMessage(General.setColor(message));
             return false;
         } else {
-            econ.withdrawPlayer(player, 100);
+            econ.withdrawPlayer(player, amount);
             return true;
         }
     }

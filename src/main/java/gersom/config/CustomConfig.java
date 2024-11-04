@@ -12,16 +12,16 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import gersom.CustomMoney;
+import gersom.CustomBank;
 
 public class CustomConfig {
-    private final CustomMoney plugin;
+    private final CustomBank plugin;
     private final String fileName;
     private FileConfiguration fileConfiguration = null;
     private File file = null;
     private final String folderName;
 
-    public CustomConfig(String fileName, String folderName, CustomMoney plugin) {
+    public CustomConfig(String fileName, String folderName, CustomBank plugin) {
         this.fileName = fileName;
         this.folderName = folderName;
         this.plugin = plugin;
