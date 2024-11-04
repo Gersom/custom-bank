@@ -57,13 +57,13 @@ public class SubCommands {
         sender.sendMessage(General.setColor("_ " + plugin.getConfigs().getLangList() + ":"));
         
         if (sender instanceof Player player) {
-            if (player.hasPermission("custommoney.use")) {
+            if (player.hasPermission("custombank.use")) {
                 sender.sendMessage(General.setColor("  &6/bank widthdraw"));
                 sender.sendMessage(General.setColor("  &6/bank balance"));
                 sender.sendMessage(General.setColor("  &6/bank ranking"));
                 sender.sendMessage(General.setColor("  &6/bank author"));
             }
-            if (player.hasPermission("custommoney.admin")) {
+            if (player.hasPermission("custombank.admin")) {
                 sender.sendMessage(General.setColor("  &6/bank givemoney"));
                 sender.sendMessage(General.setColor("  &6/bank setmoney"));
                 sender.sendMessage(General.setColor("  &6/bank reducemoney"));

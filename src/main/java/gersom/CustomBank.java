@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import gersom.commands.MainCommand;
 import gersom.commands.MainTabCompleter;
 import gersom.config.MainConfigManager;
+import gersom.events.MoneyItemEvents;
 import gersom.utils.Console;
 import gersom.utils.General;
 import gersom.utils.Vars;
@@ -35,11 +36,29 @@ public class CustomBank extends JavaPlugin {
         if (!vaultEnabled) return;
 
         registerCommands();
+        registerEvents();
         successEnable();
     }
 
     @Override
-    public void onDisable() {}
+    public void onDisable() {
+        if (configs != null) {
+            Console.sendMessage(General.generateHeadFrame());
+            Console.printBlankLine();
+            Console.sendMessage(
+                "&c" + configs.getPrefix() + "&c&l> " + configs.getLangPluginDisabled()
+            );
+            Console.printBlankLine();
+            Console.printFooter(getConfigs().getLanguage(), configs.getPrefix());
+            Console.printBlankLine();
+            Console.sendMessage(General.generateSeparator());
+        }
+    }
+
+    private void registerEvents() {
+        // Registrar eventos
+        getServer().getPluginManager().registerEvents(new MoneyItemEvents(this), this);
+    }
 
     private void successEnable() {
         Console.sendMessage(

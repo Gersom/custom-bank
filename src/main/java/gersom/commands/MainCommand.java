@@ -66,7 +66,7 @@ public class MainCommand implements CommandExecutor {
                 subCommand.equals("ranking") || 
                 subCommand.equals("author")) 
             {
-                if (player.hasPermission("custommoney.use")) {
+                if (player.hasPermission("custombank.use")) {
                     subCommands.handleSubCommands(player, args);
                 } else {
                     player.sendMessage(General.setColor(
@@ -84,7 +84,7 @@ public class MainCommand implements CommandExecutor {
                 subCommand.equals("version") || 
                 subCommand.equals("help")) 
             {
-                if (player.hasPermission("custommoney.admin")) {
+                if (player.hasPermission("custombank.admin")) {
                     subCommands.handleSubCommands(player, args);
                 } else {
                     player.sendMessage(General.setColor(

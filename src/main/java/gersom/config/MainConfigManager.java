@@ -31,7 +31,7 @@ public class MainConfigManager {
     }
 
     public String getPrefix() {
-        return configFile.getString("prefix", "[CustomMoney] ");
+        return configFile.getString("prefix", "[CustomBank]");
     }
 
     public String getLanguage() {
@@ -42,7 +42,7 @@ public class MainConfigManager {
         return configFile.getString("coin.name", "GerCoins");
     }
     public String getCoinSymbol() {
-        return configFile.getString("coin.symbol", "GC");
+        return configFile.getString("coin.symbol", "⛃");
     }
 
     // Delegate message methods to LanguageManager
@@ -130,5 +130,8 @@ public class MainConfigManager {
     }
     public List<String> getLangItemLore() {
         return languageManager.getLangItemLore();
+    }
+    public String getLangItemConsumed() {
+        return languageManager.getLangItemConsumed();
     }
 }

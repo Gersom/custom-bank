@@ -149,4 +149,7 @@ public class LanguageManager {
     public List<String> getLangItemLore() {
         return getMessageList("item.lore");
     }
+    public String getLangItemConsumed() {
+        return getMessage("item.consumed", "&a{prefix} You have deposited &e{amount} {coin_name}&a in your account.");
+    }
 }

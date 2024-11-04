@@ -37,9 +37,11 @@ public class Vars {
     public String replaceVars(String message, Integer amount) {
         message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
         message = message.replace("{coin_name}", plugin.getConfigs().getCoinName());
-        message = message.replace("{coin_symbol}", plugin.getConfigs().getCoinSymbol());
+        // message = message.replace("{coin_symbol}", plugin.getConfigs().getCoinSymbol());
         if (amount != null) {
-            message = message.replace("{amount}", "" + amount);
+            message = message.replace(
+                "{amount}", "" + amount + plugin.getConfigs().getCoinSymbol()
+            );
         }
         return message;
     }
