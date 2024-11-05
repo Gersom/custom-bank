@@ -9,3 +9,12 @@ language: "es"
 coin:
   name: "GerCoins"
   symbol: "⛃"
+
+item_money:
+  # Should the bags use heads or items?
+  # HEAD - use Player Heads.
+  # ITEM - use regular items.
+  type: "HEAD"
+  material: "PAPER"
+  # You can get textures from https://minecraft-heads.com/
+  url-texture: "http://textures.minecraft.net/texture/9fd108383dfa5b02e86635609541520e4e158952d68c1c8f8f200ec7e88642d"

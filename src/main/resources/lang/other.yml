@@ -28,7 +28,7 @@ commands:
   not_found: ""
   no_permission: ""
 
-item:
+item_money:
   name: ""
   lore:
     - ""

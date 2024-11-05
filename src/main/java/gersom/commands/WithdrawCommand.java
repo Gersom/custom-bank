@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
@@ -66,8 +67,34 @@ public class WithdrawCommand {
         boolean successWithdraw = withdrawMoney(plugin, player, amount);
         if (!successWithdraw) return;
 
-        // Dar la cabeza al jugador
-        ItemStack sackHead = generateSackHead(plugin, amount);
+        ItemStack sackHead;
+        if (plugin.getConfigs().getMoneyBagType().equals("ITEM")) {
+            String material = plugin.getConfigs().getMoneyBagMaterial();
+            Material mat = Material.matchMaterial(material);
+            if (material == null) mat = Material.PAPER;
+            sackHead = new ItemStack(mat, 1);
+
+            // Establecer nombre y lore
+            ItemMeta sackHeadMeta = sackHead.getItemMeta();
+            String sackItemName = plugin.getConfigs().getLangItemName();
+            sackItemName = plugin.getVars().replaceVars(sackItemName, amount);
+            sackHeadMeta.setDisplayName(General.setColor(sackItemName));
+
+            java.util.List<String> paperLore = new java.util.ArrayList<>();
+            List<String> sackItemLore = plugin.getConfigs().getLangItemLore();
+            for (String line : sackItemLore) {
+                line = plugin.getVars().replaceVars(line, amount);
+                paperLore.add(General.setColor(line));
+            }
+            sackHeadMeta.setLore(paperLore);
+
+            // Aplicar los cambios al ItemStack
+            sackHead.setItemMeta(sackHeadMeta);
+        } else {
+            // Dar la cabeza al jugador
+            sackHead = generateSackHead(plugin, amount);
+        }
+
         inventory.addItem(sackHead);
 
         // Enviar mensaje de confirmación
@@ -86,7 +113,7 @@ public class WithdrawCommand {
         PlayerTextures textures = dummyProfile.getTextures();
         URL urlObject;
         try {
-            urlObject = new URL("http://textures.minecraft.net/texture/9fd108383dfa5b02e86635609541520e4e158952d68c1c8f8f200ec7e88642d");
+            urlObject = new URL(plugin.getConfigs().getMoneyBagUrlTexture());
             textures.setSkin(urlObject);
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -112,6 +139,10 @@ public class WithdrawCommand {
 
         return sackHead;
     }
+
+    // private static generateNameAndLore(CustomBank plugin, Integer amount) {
+
+    // }
 
     private static boolean withdrawMoney(CustomBank plugin, Player player, Integer amount) {
         Economy econ = CustomBank.getEconomy();

@@ -44,6 +44,16 @@ public class MainConfigManager {
     public String getCoinSymbol() {
         return configFile.getString("coin.symbol", "⛃");
     }
+    
+    public String getMoneyBagType() {
+        return configFile.getString("item_money.type", "ITEM");
+    }
+    public String getMoneyBagMaterial() {
+        return configFile.getString("item_money.material", "PAPER");
+    }
+    public String getMoneyBagUrlTexture() {
+        return configFile.getString("item_money.url-texture", "http://textures.minecraft.net/texture/9fd108383dfa5b02e86635609541520e4e158952d68c1c8f8f200ec7e88642d");
+    }
 
     // Delegate message methods to LanguageManager
     // Plugin messages

@@ -28,7 +28,7 @@ commands:
   not_found: "Command not found!"
   no_permission: "You don't have permission to use this command!"
 
-item:
+item_money:
   name: "&6&lMoney bag &6(&e{amount}&6)"
   lore:
     - "&7Contains: &e{amount} {coin_name}"

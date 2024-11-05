@@ -1,8 +1,11 @@
 package gersom.events;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,31 +20,51 @@ import net.milkbowl.vault.economy.Economy;
 
 public class MoneyItemEvents implements Listener {
     private final CustomBank plugin;
+    private final Set<Material> blockedMaterials;
 
     public MoneyItemEvents(CustomBank plugin) {
         this.plugin = plugin;
+        this.blockedMaterials = new HashSet<>();
+        initializeBlockedMaterials();
+    }
+
+    private void initializeBlockedMaterials() {
+        // Agregamos los materiales bloqueados
+        blockedMaterials.add(Material.ENDER_CHEST);
+        blockedMaterials.add(Material.BARREL);
+        blockedMaterials.add(Material.HOPPER);
+        blockedMaterials.add(Material.CHEST_MINECART);
+        blockedMaterials.add(Material.CHEST);
+        blockedMaterials.add(Material.TRAPPED_CHEST);
+        blockedMaterials.add(Material.SHULKER_BOX);
     }
 
     @EventHandler
     @SuppressWarnings({"", "CallToPrintStackTrace", "UnnecessaryReturnStatement"})
     public void onPlayerInteract(PlayerInteractEvent event) {
-        // para comprobar si es shift + clic derecho
-        // if ( !event.getPlayer().isSneaking() ||
-        //     (event.getAction() != Action.RIGHT_CLICK_AIR && 
-        //      event.getAction() != Action.RIGHT_CLICK_BLOCK)) {
-        //     return;
-        // }
-        // Verificar si es shift + clic derecho
+        // Verificar si hace clic derecho
         if (event.getAction() != Action.RIGHT_CLICK_AIR && 
             event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
 
+        // Si está interactuando con un bloque, verificar si es uno bloqueado
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            Block clickedBlock = event.getClickedBlock();
+            if (clickedBlock != null && blockedMaterials.contains(clickedBlock.getType())) {
+                return;
+            }
+        }
+
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
 
-        // Verificar si el item es válido y es una cabeza de jugador
-        if (item == null || item.getType() != Material.PLAYER_HEAD) {
+        if (item == null) return;
+
+        String material = plugin.getConfigs().getMoneyBagMaterial();
+        Material mat = Material.matchMaterial(material);
+        if (material == null) mat = Material.PAPER;
+        if (item == null || (item.getType() != mat && item.getType() != Material.PLAYER_HEAD)) {
             return;
         }
 

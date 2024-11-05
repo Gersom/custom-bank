@@ -142,14 +142,14 @@ public class LanguageManager {
         return getMessage("commands.no_permission", "You don't have permission to use this command!");
     }
 
-    // Item messages
+    // Item money messages
     public String getLangItemName() {
-        return getMessage("item.name", "&6&lMoney bag (&e{mount}{coin_symbol}&6)");
+        return getMessage("item_money.name", "&6&lMoney bag (&e{mount}{coin_symbol}&6)");
     }
     public List<String> getLangItemLore() {
-        return getMessageList("item.lore");
+        return getMessageList("item_money.lore");
     }
     public String getLangItemConsumed() {
-        return getMessage("item.consumed", "&a{prefix} You have deposited &e{amount} {coin_name}&a in your account.");
+        return getMessage("item_money.consumed", "&a{prefix} You have deposited &e{amount} {coin_name}&a in your account.");
     }
 }
