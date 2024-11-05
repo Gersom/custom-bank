@@ -17,16 +17,14 @@ import net.milkbowl.vault.economy.Economy;
 
 public class SubCommands {
     private final CustomBank plugin;
-    private final WithdrawCommand withdrawCommand;
 
     public SubCommands(CustomBank plugin) {
         this.plugin = plugin;
-        this.withdrawCommand = new WithdrawCommand(plugin);
     }
 
     public void handleSubCommands(CommandSender sender, String[] args) {
         if (args[0].equalsIgnoreCase("withdraw")) {
-            withdrawCommand.commandLogic((Player) sender, args); return;
+            WithdrawCommand.commandLogic(plugin, (Player) sender, args); return;
         }
         if (args[0].equalsIgnoreCase("balance")) {
             balanceCommand(sender, args); return;
@@ -38,13 +36,13 @@ public class SubCommands {
             showAuthor(sender);return;
         }
         if (args[0].equalsIgnoreCase("givemoney")) {
-            return;
+            GiveMoneyCommand.commandLogic(plugin, sender, args); return;
         }
         if (args[0].equalsIgnoreCase("setmoney")) {
-            return;
+            SetMoneyCommand.commandLogic(plugin, sender, args); return;
         }
         if (args[0].equalsIgnoreCase("reducemoney")) {
-            return;
+            ReduceMoneyCommand.commandLogic(plugin, sender, args); return;
         }
         if (args[0].equalsIgnoreCase("reload")) {
             reloadConfig(sender); return;

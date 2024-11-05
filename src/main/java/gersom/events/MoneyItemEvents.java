@@ -25,10 +25,15 @@ public class MoneyItemEvents implements Listener {
     @EventHandler
     @SuppressWarnings({"", "CallToPrintStackTrace", "UnnecessaryReturnStatement"})
     public void onPlayerInteract(PlayerInteractEvent event) {
+        // para comprobar si es shift + clic derecho
+        // if ( !event.getPlayer().isSneaking() ||
+        //     (event.getAction() != Action.RIGHT_CLICK_AIR && 
+        //      event.getAction() != Action.RIGHT_CLICK_BLOCK)) {
+        //     return;
+        // }
         // Verificar si es shift + clic derecho
-        if (!event.getPlayer().isSneaking() || 
-            (event.getAction() != Action.RIGHT_CLICK_AIR && 
-             event.getAction() != Action.RIGHT_CLICK_BLOCK)) {
+        if (event.getAction() != Action.RIGHT_CLICK_AIR && 
+            event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
 

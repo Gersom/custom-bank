@@ -18,16 +18,9 @@ import gersom.CustomBank;
 import gersom.utils.General;
 import net.milkbowl.vault.economy.Economy;
 
-
 public class WithdrawCommand {
-    private final CustomBank plugin;
-
-    public WithdrawCommand(CustomBank plugin) {
-        this.plugin = plugin;
-    }
-
     @SuppressWarnings({"", "CallToPrintStackTrace"})
-    public void commandLogic(Player player, String[] args) {
+    public static void commandLogic(CustomBank plugin, Player player, String[] args) {
         if (args.length == 1) {
             String message = plugin.getConfigs().getLangWithdrawInvalidNumber();
             message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
@@ -70,11 +63,11 @@ public class WithdrawCommand {
         }
 
         // Retirar dinero
-        boolean successWithdraw = withdrawMoney(player, amount);
+        boolean successWithdraw = withdrawMoney(plugin, player, amount);
         if (!successWithdraw) return;
 
         // Dar la cabeza al jugador
-        ItemStack sackHead = generateSackHead(amount);
+        ItemStack sackHead = generateSackHead(plugin, amount);
         inventory.addItem(sackHead);
 
         // Enviar mensaje de confirmación
@@ -84,7 +77,7 @@ public class WithdrawCommand {
     }
 
     @SuppressWarnings({"", "CallToPrintStackTrace"})
-    private ItemStack generateSackHead(Integer amount) {
+    private static ItemStack generateSackHead(CustomBank plugin, Integer amount) {
         // Crear la cabeza personalizada
         ItemStack sackHead = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta sackHeadMeta = (SkullMeta) sackHead.getItemMeta();
@@ -120,7 +113,7 @@ public class WithdrawCommand {
         return sackHead;
     }
 
-    private boolean withdrawMoney(Player player, Integer amount) {
+    private static boolean withdrawMoney(CustomBank plugin, Player player, Integer amount) {
         Economy econ = CustomBank.getEconomy();
         double money = econ.getBalance(player);
 

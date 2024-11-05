@@ -4,8 +4,11 @@ gersom\events\MoneyItemEvents.class
 gersom\utils\General.class
 gersom\config\MainConfigManager.class
 gersom\commands\SubCommands.class
+gersom\commands\GiveMoneyCommand.class
 gersom\utils\Vars.class
+gersom\commands\SetMoneyCommand.class
 gersom\commands\MainCommand.class
+gersom\commands\ReduceMoneyCommand.class
 gersom\commands\MainTabCompleter.class
 gersom\config\LanguageManager.class
 gersom\config\CustomConfig.class
