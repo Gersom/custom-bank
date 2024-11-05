@@ -12,9 +12,9 @@ commands:
     usage: /<command> [subcommand]
     permission-message: §4You don't have permission to use this command
     subcommands:
-      widthdraw:
+      withdraw:
         description: Withdraw money from the player
-        usage: /<command> widthdraw <amount>
+        usage: /<command> withdraw <amount>
         permission: the-skeleton-bosses.use
       balance:
         description: Shows the balance of the player

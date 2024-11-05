@@ -29,7 +29,7 @@ public class WithdrawCommand {
     @SuppressWarnings({"", "CallToPrintStackTrace"})
     public void commandLogic(Player player, String[] args) {
         if (args.length == 1) {
-            String message = plugin.getConfigs().getLangWidthdrawInvalidNumber();
+            String message = plugin.getConfigs().getLangWithdrawInvalidNumber();
             message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
             player.sendMessage(General.setColor(message));
             return;
@@ -37,7 +37,7 @@ public class WithdrawCommand {
 
         PlayerInventory inventory = player.getInventory();
         if (inventory.firstEmpty() == -1) {
-            String message = plugin.getConfigs().getLangWidthdrawFullInventory();
+            String message = plugin.getConfigs().getLangWithdrawFullInventory();
             message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
             player.sendMessage(General.setColor(message));
             return;
@@ -52,7 +52,7 @@ public class WithdrawCommand {
             
             // Verificar que el número sea positivo
             if (tempAmount <= 0) {
-                String message = plugin.getConfigs().getLangWidthdrawTooMuchMoney();
+                String message = plugin.getConfigs().getLangWithdrawTooMuchMoney();
                 message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
                 player.sendMessage(General.setColor(message));
                 return;
@@ -63,7 +63,7 @@ public class WithdrawCommand {
         }
         
         catch (NumberFormatException e) {
-            String message = plugin.getConfigs().getLangWidthdrawInvalidNumber();
+            String message = plugin.getConfigs().getLangWithdrawInvalidNumber();
             message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
             player.sendMessage(General.setColor(message));
             return;
@@ -78,7 +78,7 @@ public class WithdrawCommand {
         inventory.addItem(sackHead);
 
         // Enviar mensaje de confirmación
-        String message = plugin.getConfigs().getLangWidthdrawItemObtained();
+        String message = plugin.getConfigs().getLangWithdrawItemObtained();
         message = plugin.getVars().replaceVars(message, amount);
         player.sendMessage(General.setColor(message));
     }
@@ -125,7 +125,7 @@ public class WithdrawCommand {
         double money = econ.getBalance(player);
 
         if (money < amount) {
-            String message = plugin.getConfigs().getLangWidthdrawNoMoney();
+            String message = plugin.getConfigs().getLangWithdrawNoMoney();
             message = plugin.getVars().replaceVars(message);
             player.sendMessage(General.setColor(message));
             return false;

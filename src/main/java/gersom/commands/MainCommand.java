@@ -33,7 +33,7 @@ public class MainCommand implements CommandExecutor {
             if (args.length > 0) {
                 String subCommand = args[0].toLowerCase();
 
-                if (subCommand.equals("widthdraw")) {
+                if (subCommand.equals("withdraw")) {
                     Console.sendMessage(
                         "&c" +plugin.getConfigs().getPrefix() + " " + plugin.getConfigs().getLangPlayerOnly()
                     );
@@ -61,7 +61,7 @@ public class MainCommand implements CommandExecutor {
             String subCommand = args[0].toLowerCase();
 
             // Comandos que requieren permiso básico
-            if (subCommand.equals("widthdraw") || 
+            if (subCommand.equals("withdraw") || 
                 subCommand.equals("balance") || 
                 subCommand.equals("ranking") || 
                 subCommand.equals("author")) 

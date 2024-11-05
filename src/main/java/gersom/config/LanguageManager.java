@@ -81,21 +81,21 @@ public class LanguageManager {
     }
 
     // Commands messages
-    // Widthdraw messages
-    public String getLangWidthdrawItemObtained() {
-        return getMessage("commands.widthdraw.item_obtained", "&a{prefix} You have received a bag of money with &e{amount} {coin_name}&a!");
+    // Withdraw messages
+    public String getLangWithdrawItemObtained() {
+        return getMessage("commands.withdraw.item_obtained", "&a{prefix} You have received a bag of money with &e{amount} {coin_name}&a!");
     }
-    public String getLangWidthdrawFullInventory() {
-        return getMessage("commands.widthdraw.full_inventory", "&c{prefix} Your inventory is full!");
+    public String getLangWithdrawFullInventory() {
+        return getMessage("commands.withdraw.full_inventory", "&c{prefix} Your inventory is full!");
     }
-    public String getLangWidthdrawInvalidNumber() {
-        return getMessage("commands.widthdraw.invalid_number", "&c{prefix} You must enter a valid integer");
+    public String getLangWithdrawInvalidNumber() {
+        return getMessage("commands.withdraw.invalid_number", "&c{prefix} You must enter a valid integer");
     }
-    public String getLangWidthdrawNoMoney() {
-        return getMessage("commands.widthdraw.no_money", "&c{prefix} ¡You do not have enough &e{coin_name}&c!");
+    public String getLangWithdrawNoMoney() {
+        return getMessage("commands.withdraw.no_money", "&c{prefix} ¡You do not have enough &e{coin_name}&c!");
     }
-    public String getLangWidthdrawTooMuchMoney() {
-        return getMessage("commands.widthdraw.too_much_money", "&c{prefix} The amount must be greater than 0");
+    public String getLangWithdrawTooMuchMoney() {
+        return getMessage("commands.withdraw.too_much_money", "&c{prefix} The amount must be greater than 0");
     }
 
     // Balance messages

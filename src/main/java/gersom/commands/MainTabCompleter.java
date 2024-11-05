@@ -17,7 +17,7 @@ public class MainTabCompleter implements TabCompleter {
         if (args.length == 1) {
             // Comandos básicos (permiso use)
             if (sender.hasPermission("custombank.use")) {
-                completions.add("widthdraw");
+                completions.add("withdraw");
                 completions.add("balance");
                 completions.add("ranking");
                 completions.add("author");

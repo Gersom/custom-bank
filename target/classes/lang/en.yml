@@ -9,7 +9,7 @@ plugin:
       - "Create your own custom bank."
 
 commands:
-  widthdraw:
+  withdraw:
     item_obtained: "&a{prefix} You have received a bag of money with &e{amount} {coin_name}&a!"
     full_inventory: "&c{prefix} Your inventory is full!"
     invalid_number: "&c{prefix} You must enter a valid integer"

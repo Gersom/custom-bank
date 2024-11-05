@@ -63,21 +63,21 @@ public class MainConfigManager {
     }
 
     // Commands messages
-    // Widthdraw messages
-    public String getLangWidthdrawItemObtained() {
-        return languageManager.getLangWidthdrawItemObtained();
+    // Withdraw messages
+    public String getLangWithdrawItemObtained() {
+        return languageManager.getLangWithdrawItemObtained();
     }
-    public String getLangWidthdrawFullInventory() {
-        return languageManager.getLangWidthdrawFullInventory();
+    public String getLangWithdrawFullInventory() {
+        return languageManager.getLangWithdrawFullInventory();
     }
-    public String getLangWidthdrawInvalidNumber() {
-        return languageManager.getLangWidthdrawInvalidNumber();
+    public String getLangWithdrawInvalidNumber() {
+        return languageManager.getLangWithdrawInvalidNumber();
     }
-    public String getLangWidthdrawNoMoney() {
-        return languageManager.getLangWidthdrawNoMoney();
+    public String getLangWithdrawNoMoney() {
+        return languageManager.getLangWithdrawNoMoney();
     }
-    public String getLangWidthdrawTooMuchMoney() {
-        return languageManager.getLangWidthdrawTooMuchMoney();
+    public String getLangWithdrawTooMuchMoney() {
+        return languageManager.getLangWithdrawTooMuchMoney();
     }
 
     // Balance messages

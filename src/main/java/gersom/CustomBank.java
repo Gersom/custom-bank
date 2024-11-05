@@ -82,18 +82,18 @@ public class CustomBank extends JavaPlugin {
     }
 
     private boolean existsVault() {
-        if (setupEconomy()) {
+        if (!setupEconomy() ) {
             Console.sendMessage(General.setColor(
-                "&a" + getConfigs().getPrefix() + " Vault dependency found! :D"
-            ));
-            return true;
-        } else {
-            Console.sendMessage(General.setColor(
-                "&c" + getConfigs().getPrefix() + "&cDisabled due to no Vault dependency found!"
-            ));
-            getServer().getPluginManager().disablePlugin(this);
-            return false;
+                "&c" + getConfigs().getPrefix() + "&c Disabled due to no Vault dependency found!"
+                ));
+                getServer().getPluginManager().disablePlugin(this);
+                return false;
         }
+
+        Console.sendMessage(General.setColor(
+            "&a" + getConfigs().getPrefix() + " Vault dependency found! :D"
+        ));
+        return true;
     }
 
     private boolean setupEconomy() {

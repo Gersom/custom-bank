@@ -9,7 +9,7 @@ plugin:
       - "Crea tu propio Banco de Dinero personalizado."
 
 commands:
-  widthdraw:
+  withdraw:
     item_obtained: "&a{prefix} ¡Has recibido una bolsa de dinero con &e{amount} {coin_name}&a!"
     full_inventory: "&c{prefix} ¡Tu inventario está lleno!"
     invalid_number: "&c{prefix} Debes introducir un número entero válido"

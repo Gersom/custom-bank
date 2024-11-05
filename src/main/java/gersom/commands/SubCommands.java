@@ -1,6 +1,12 @@
 package gersom.commands;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -19,14 +25,14 @@ public class SubCommands {
     }
 
     public void handleSubCommands(CommandSender sender, String[] args) {
-        if (args[0].equalsIgnoreCase("widthdraw")) {
+        if (args[0].equalsIgnoreCase("withdraw")) {
             withdrawCommand.commandLogic((Player) sender, args); return;
         }
         if (args[0].equalsIgnoreCase("balance")) {
             balanceCommand(sender, args); return;
         }
         if (args[0].equalsIgnoreCase("ranking")) {
-            return;
+            showTopPlayers(sender); return;
         }
         if (args[0].equalsIgnoreCase("author")) {
             showAuthor(sender);return;
@@ -58,7 +64,7 @@ public class SubCommands {
         
         if (sender instanceof Player player) {
             if (player.hasPermission("custombank.use")) {
-                sender.sendMessage(General.setColor("  &6/bank widthdraw"));
+                sender.sendMessage(General.setColor("  &6/bank withdraw"));
                 sender.sendMessage(General.setColor("  &6/bank balance"));
                 sender.sendMessage(General.setColor("  &6/bank ranking"));
                 sender.sendMessage(General.setColor("  &6/bank author"));
@@ -116,6 +122,75 @@ public class SubCommands {
 
         message = plugin.getVars().replaceVars(message, (int) money);
         sender.sendMessage(General.setColor(message));
+    }
+
+    private void showTopPlayers(CommandSender sender) {
+        Economy econ = CustomBank.getEconomy();
+        List<PlayerBalance> topPlayers = new ArrayList<>();
+        
+        // Recopilar datos de todos los jugadores
+        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+            if (player.hasPlayedBefore()) {
+                double balance = econ.getBalance(player);
+                topPlayers.add(new PlayerBalance(player.getName(), balance));
+            }
+        }
+
+        // Ordenar la lista por balance (mayor a menor)
+        Collections.sort(topPlayers, Comparator.comparingDouble(PlayerBalance::getBalance).reversed());
+
+        // Mostrar el encabezado
+        String messageTop = "Top 10 Richest Players";
+        if (plugin.getConfigs().getLanguage().equals("es")) {
+            messageTop = "Top 10 Jugadores Más Ricos";
+        }
+        sender.sendMessage(General.generateSeparator());
+        sender.sendMessage(General.setColor("&b  " + messageTop));
+        sender.sendMessage("");
+
+        // Mostrar top 10 (o menos si no hay suficientes jugadores)
+        int limit = Math.min(10, topPlayers.size());
+        for (int i = 0; i < limit; i++) {
+            PlayerBalance pb = topPlayers.get(i);
+            String playerName = pb.getPlayerName();
+            double balance = pb.getBalance();
+            
+            // Diferentes colores para los primeros lugares
+            String color = "&7";
+            if (i == 0) color = "&6";
+            if (i == 1) color = "&e";
+            if (i == 2) color = "&f";
+            
+            sender.sendMessage(General.setColor(String.format(
+                "%s#%d - %s%s: %d%s",
+                color, (i + 1),
+                color, playerName,
+                (int) balance,
+                plugin.getConfigs().getCoinSymbol()
+            )));
+        }
+        
+        sender.sendMessage("");
+        sender.sendMessage(General.generateSeparator());
+    }
+
+    // Clase auxiliar para almacenar los datos del jugador
+    private static class PlayerBalance {
+        private final String playerName;
+        private final double balance;
+
+        public PlayerBalance(String playerName, double balance) {
+            this.playerName = playerName;
+            this.balance = balance;
+        }
+
+        public String getPlayerName() {
+            return playerName;
+        }
+
+        public double getBalance() {
+            return balance;
+        }
     }
 
     private void reloadConfig(CommandSender sender) {

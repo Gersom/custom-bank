@@ -10,7 +10,7 @@ public class General {
 
     // Función para generar marcos de texto
     public static String generateTextFrame(String text) {
-        return setColor("&b=========== &l" + text + " &b===========");
+        return setColor("&b========= &l" + text + " &b=========");
     }
 
     // Función para generar marco de texto de cabecera

@@ -1,4 +1,6 @@
+gersom\commands\SubCommands$PlayerBalance.class
 gersom\commands\WithdrawCommand.class
+gersom\events\MoneyItemEvents.class
 gersom\utils\General.class
 gersom\config\MainConfigManager.class
 gersom\commands\SubCommands.class
@@ -7,4 +9,5 @@ gersom\commands\MainCommand.class
 gersom\commands\MainTabCompleter.class
 gersom\config\LanguageManager.class
 gersom\config\CustomConfig.class
+gersom\CustomBank.class
 gersom\utils\Console.class

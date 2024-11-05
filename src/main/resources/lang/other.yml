@@ -9,7 +9,7 @@ plugin:
       - ""
 
 commands:
-  widthdraw:
+  withdraw:
     item_obtained: ""
     full_inventory: ""
     invalid_number: ""
