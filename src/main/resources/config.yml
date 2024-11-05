@@ -3,7 +3,7 @@ prefix: "[Bank]"
 
 # check in the /lang folder
 # Plugin language [en, es, other]
-language: "es"
+language: "en"
 
 # Currency of the plugin
 coin:
