@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -121,6 +122,11 @@ public class MoneyItemEvents implements Listener {
                 item.setAmount(item.getAmount() - 1);
             } else {
                 player.getInventory().setItemInMainHand(null);
+            }
+
+            // Emitir sonido de exito
+            if (plugin.getConfigs().getEnableSound()) {
+                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
             }
 
             // Enviar mensaje de confirmación

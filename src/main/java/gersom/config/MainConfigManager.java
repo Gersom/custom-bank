@@ -38,6 +38,10 @@ public class MainConfigManager {
         return configFile.getString("language", "en");
     }
 
+    public Boolean getEnableSound() {
+        return configFile.getBoolean("sound", true);
+    }
+
     public String getCoinName() {
         return configFile.getString("coin.name", "GerCoins");
     }

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -97,6 +98,11 @@ public class WithdrawCommand {
 
         inventory.addItem(sackHead);
 
+        // Emitir sonido de exito
+        if (plugin.getConfigs().getEnableSound()) {
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+        }
+
         // Enviar mensaje de confirmación
         String message = plugin.getConfigs().getLangWithdrawItemObtained();
         message = plugin.getVars().replaceVars(message, amount);
@@ -140,10 +146,7 @@ public class WithdrawCommand {
         return sackHead;
     }
 
-    // private static generateNameAndLore(CustomBank plugin, Integer amount) {
-
-    // }
-
+    @SuppressWarnings({"", "CallToPrintStackTrace"})
     private static boolean withdrawMoney(CustomBank plugin, Player player, Integer amount) {
         Economy econ = CustomBank.getEconomy();
         double money = econ.getBalance(player);
@@ -152,6 +155,12 @@ public class WithdrawCommand {
             String message = plugin.getConfigs().getLangWithdrawNoMoney();
             message = plugin.getVars().replaceVars(message);
             player.sendMessage(General.setColor(message));
+
+            // Emitir sonido de fracaso
+            if (plugin.getConfigs().getEnableSound()) {
+                player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+            }
+
             return false;
         } else {
             econ.withdrawPlayer(player, amount);

@@ -5,6 +5,10 @@ prefix: "[Bank]"
 # Plugin language [en, es, other]
 language: "en"
 
+# If enabled it will emit sounds
+# when I withdraw money, when I consume the item and when I cannot withdraw money for lack of funds.
+sound: true
+
 # Currency of the plugin
 coin:
   name: "GerCoins"
