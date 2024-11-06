@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import gersom.commands.MainCommand;
 import gersom.commands.MainTabCompleter;
 import gersom.config.MainConfigManager;
+import gersom.events.DeathMoneyEvents;
 import gersom.events.MoneyItemEvents;
 import gersom.utils.Console;
 import gersom.utils.General;
@@ -56,8 +57,11 @@ public class CustomBank extends JavaPlugin {
     }
 
     private void registerEvents() {
-        // Registrar eventos
+        // Evento jugador interactuando con un item
         getServer().getPluginManager().registerEvents(new MoneyItemEvents(this), this);
+
+        // Evento muerte del jugador
+        getServer().getPluginManager().registerEvents(new DeathMoneyEvents(this), this);
     }
 
     private void successEnable() {

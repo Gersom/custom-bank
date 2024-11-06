@@ -55,6 +55,19 @@ public class MainConfigManager {
         return configFile.getString("item_money.url-texture", "http://textures.minecraft.net/texture/9fd108383dfa5b02e86635609541520e4e158952d68c1c8f8f200ec7e88642d");
     }
 
+    public boolean isLoseMoneyOnDeathEnabled() {
+        return configFile.getBoolean("lose_money_on_death.enabled", false);
+    }
+    public int getLoseMoneyOnDeathCost() {
+        return configFile.getInt("lose_money_on_death.cost", 100);
+    }
+    public boolean isLoseMoneyOnDeathMessageEnabled() {
+        return configFile.getBoolean("lose_money_on_death.message.enabled", false);
+    }
+    public String getLoseMoneyOnDeathMessageText() {
+        return configFile.getString("lose_money_on_death.message.text", "&cYou lost &e{amount} {coin_name}&c!");
+    }
+
     // Delegate message methods to LanguageManager
     // Plugin messages
     public String getLangPluginEnabled() {
