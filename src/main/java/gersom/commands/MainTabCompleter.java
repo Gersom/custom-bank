@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -31,6 +32,10 @@ public class MainTabCompleter implements TabCompleter {
                 completions.add("reload");
                 completions.add("version");
                 completions.add("help");
+            }
+        } else if (args.length == 2) {
+            if ("givemoney".equals(args[0]) || "setmoney".equals(args[0]) || "reducemoney".equals(args[0])) {
+                Bukkit.getOnlinePlayers().forEach(player -> completions.add(player.getName()));
             }
         }
 
