@@ -167,7 +167,26 @@ public class SubCommands {
                 plugin.getConfigs().getCoinSymbol()
             )));
         }
-        
+
+        // Mostrar el ranking del jugador que ejecuta el comando
+        if (sender instanceof Player player) {
+            int playerRank = -1;
+            for (int i = 0; i < topPlayers.size(); i++) {
+                if (topPlayers.get(i).getPlayerName().equals(player.getName())) {
+                    playerRank = i + 1;
+                    break;
+                }
+            }
+            
+            if (playerRank > 0) {
+                String rankMessage = plugin.getConfigs().getLangRanking();
+                rankMessage = rankMessage.replace("{rank}", "#" + playerRank);
+                rankMessage = plugin.getVars().replaceVars(rankMessage, (int) topPlayers.get(playerRank - 1).getBalance());
+                sender.sendMessage("");
+                sender.sendMessage(General.setColor(rankMessage));
+            }
+        }
+
         sender.sendMessage("");
         sender.sendMessage(General.generateSeparator());
     }
@@ -202,7 +221,7 @@ public class SubCommands {
     private void showAuthor(CommandSender sender) {
         sender.sendMessage("");
         sender.sendMessage(General.setColor(
-            "&b" + plugin.getConfigs().getPrefix() + " &r&bAuthor: " + Vars.author
+            "&b" + plugin.getConfigs().getPrefix() + " &r&bAuthor " + Vars.author
         ));
         sender.sendMessage("");
     }
@@ -210,7 +229,7 @@ public class SubCommands {
     private void showVersion(CommandSender sender) {
         sender.sendMessage("");
         sender.sendMessage(General.setColor(
-            "&b" + plugin.getConfigs().getPrefix() + " &r&bVersión: " + Vars.version
+            "&b" + plugin.getConfigs().getPrefix() + " &r&bVersión " + Vars.version
         ));
         sender.sendMessage("");
     }

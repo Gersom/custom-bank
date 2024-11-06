@@ -20,7 +20,7 @@ commands:
   givemoney: "&a{prefix} You have given &e{amount} {coin_name}&a to &b{player}&a."
   setmoney: "&a{prefix} You have changed the balance of &b{player}&a to &e{amount} {coin_name}&a."
   reducemoney: "&a{prefix} You have reduced the balance of &b{player}&a to &e{amount} {coin_name}&a."
-  ranking: "&a{prefix} Your current rank is &e{rank}&a."
+  ranking: "&aYour current rank is &e{rank}&a with &e{amount}&a."
   list: "List of commands"
   player_only: "You can only use this command from within the game!"
   help_text: "To see the list of commands, type"
