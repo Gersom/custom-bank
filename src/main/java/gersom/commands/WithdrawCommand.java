@@ -115,7 +115,7 @@ public class WithdrawCommand {
         ItemStack sackHead = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta sackHeadMeta = (SkullMeta) sackHead.getItemMeta();
         
-        PlayerProfile dummyProfile = Bukkit.createPlayerProfile(UUID.randomUUID(), "SackOfMoney");
+        PlayerProfile dummyProfile = Bukkit.createPlayerProfile(UUID.fromString("99999999-9999-9999-9999-99999999999e"), "SackOfMoney");
         PlayerTextures textures = dummyProfile.getTextures();
         URL urlObject;
         try {
