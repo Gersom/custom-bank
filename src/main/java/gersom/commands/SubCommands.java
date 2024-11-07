@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import gersom.CustomBank;
 import gersom.utils.General;
+import gersom.utils.MoneyUtils;
 import gersom.utils.Vars;
 import net.milkbowl.vault.economy.Economy;
 
@@ -118,7 +119,10 @@ public class SubCommands {
             }
         }
 
-        message = plugin.getVars().replaceVars(message, (int) money);
+        message = message.replace("{prefix}", plugin.getConfigs().getPrefix());
+        message = message.replace("{coin_name}", plugin.getConfigs().getCoinName());
+        message = message.replace("{coin_symbol}", plugin.getConfigs().getCoinSymbol());
+        message = message.replace("{amount}", MoneyUtils.formatMoney(money) + plugin.getConfigs().getCoinSymbol());
         sender.sendMessage(General.setColor(message));
     }
 
