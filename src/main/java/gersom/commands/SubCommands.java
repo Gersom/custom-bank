@@ -142,16 +142,16 @@ public class SubCommands {
         Collections.sort(topPlayers, Comparator.comparingDouble(PlayerBalance::getBalance).reversed());
 
         // Mostrar el encabezado
-        String messageTop = "Top 10 Richest Players";
+        String messageTop = "Top 5 Richest Players";
         if (plugin.getConfigs().getLanguage().equals("es")) {
-            messageTop = "Top 10 Jugadores Más Ricos";
+            messageTop = "Top 5 Jugadores Más Ricos";
         }
         sender.sendMessage(General.generateSeparator());
         sender.sendMessage(General.setColor("&b  " + messageTop));
         sender.sendMessage("");
 
         // Mostrar top 10 (o menos si no hay suficientes jugadores)
-        int limit = Math.min(10, topPlayers.size());
+        int limit = Math.min(5, topPlayers.size());
         for (int i = 0; i < limit; i++) {
             PlayerBalance pb = topPlayers.get(i);
             String playerName = pb.getPlayerName();
