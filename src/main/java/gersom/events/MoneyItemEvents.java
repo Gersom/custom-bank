@@ -75,9 +75,15 @@ public class MoneyItemEvents implements Listener {
             return;
         }
 
+        String name = meta.getDisplayName();
+        
         // Obtener el lore y el símbolo de la moneda
         List<String> lore = meta.getLore();
         String coinSymbol = plugin.getConfigs().getCoinSymbol();
+
+        if (!name.contains(coinSymbol)) {
+            return;
+        }
 
         // Buscar en el lore la línea que contiene el símbolo de la moneda
         String amountStr = null;
